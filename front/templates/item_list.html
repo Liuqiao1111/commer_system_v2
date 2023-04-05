@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <script src="{% static 'js/item_list.js' %}"></script>
+{% endblock %}
+
+{% block title %}
+    商品信息
+{% endblock %}
+
+{% block body %}
+    <h1>商品信息</h1>
+    <div class="panel panel-default" style="margin-top: 10px">
+        <div class="panel-heading">商品信息</div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>名称</th>
+                <th>价格</th>
+                <th>图片</th>
+                <th>数量</th>
+                <th>所属分类</th>
+                <th>查看详情</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.price }}</td>
+                    <td>
+                        <img src="/image/{{ item.image }}" alt="" style="width: 120px;height: 90px">
+                    </td>
+                    <td>{{ item.number }}</td>
+                    <td>{{ item.category.name }}</td>
+                    <td>
+                        <button class="btn btn-success btn-sm look-item-detail-btn" item-id="{{ item.id }}">查看详情
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
