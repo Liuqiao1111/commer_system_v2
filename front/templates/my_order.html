@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <script src="{% static 'js/my_order.js' %}"></script>
+{% endblock %}
+
+{% block title %}
+    我的订单
+{% endblock %}
+
+{% block body %}
+    <h1>我的订单</h1>
+    <div class="panel panel-default" style="margin-top: 10px">
+        <div class="panel-heading">订单信息</div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>商品名称</th>
+                <th>价格</th>
+                <th>图片</th>
+                <th>购买时间</th>
+                <th>删除</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.item.name }}</td>
+                    <td>{{ order.price }}</td>
+                    <td>
+                        <img src="/image/{{ order.item.image }}" alt="" style="width: 120px;height: 90px">
+                    </td>
+                    <td>{{ order.create_time }}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger delete-order-btn" order-id="{{ order.id }}">删除订单</button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

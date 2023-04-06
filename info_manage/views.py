@@ -156,7 +156,7 @@ def my_car(request):
         context = {
             'cars': cars
         }
-        return render(request, '', context=context)
+        return render(request, 'my_car.html', context=context)
     else:
         # 删除购物车
         car_id = request.POST.get('car_id')
@@ -176,7 +176,7 @@ def my_order(request):
         context = {
             'orders': orders
         }
-        return render(request, '', context=context)
+        return render(request, 'my_order.html', context=context)
     else:
         # 删除订单
         order_id = request.POST.get('order_id')
@@ -196,7 +196,7 @@ def my_info(request):
         context = {
             'info': info
         }
-        return render(request, '', context=context)
+        return render(request, 'my_info.html', context=context)
     else:
         # 更新个人信息
         username = request.POST.get('username')
@@ -219,7 +219,7 @@ def my_info(request):
 
 def category_count(request):
     if request.method == 'GET':
-        return render(request, '')
+        return render(request, 'category_count.html')
     else:
         data_list = []
         categories = CategoryModel.objects.all()
@@ -228,7 +228,7 @@ def category_count(request):
             item_count = category.itemmodel_set.all().count()
             data_list.append({
                 'name': name,
-                'item_count': item_count
+                'value': item_count
             })
         return JsonResponse({'code': 200, 'data': data_list})
 
@@ -243,11 +243,11 @@ def top_up(request):
         context = {
             'user': user
         }
-        return render(request, '', context=context)
+        return render(request, 'top_up.html', context=context)
     else:
         money = request.POST.get('money')
         if not money:
             return JsonResponse({'code': 400, 'message': '充值金额不能为空'})
-        user.money = user.money + money
+        user.money = user.money + int(money)
         user.save()
         return JsonResponse({'code': 200})

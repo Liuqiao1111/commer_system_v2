@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <script src="{% static 'js/my_car.js' %}"></script>
+{% endblock %}
+
+{% block title %}
+    购物车
+{% endblock %}
+
+{% block body %}
+    <h1>我的购物车</h1>
+    <div class="panel panel-default" style="margin-top: 10px">
+        <div class="panel-heading">购物车信息</div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>商品名称</th>
+                <th>价格</th>
+                <th>图片</th>
+                <th>添加时间</th>
+                <th>删除</th>
+                <th>购买</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for car in cars %}
+                <tr>
+                    <td>
+                        <a href="/item_detail/{{ car.item.id }}">{{ car.item.name }}</a>
+                    </td>
+                    <td>{{ car.price }}</td>
+                    <td>
+                        <img src="/image/{{ car.item.image }}" alt="" style="width: 120px;height: 90px">
+                    </td>
+                    <td>{{ car.create_time }}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger delete-car-btn" car-id="{{ car.id }}">删除</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-success add-order-btn" car-id="{{ car.id }}"
+                                item-id="{{ car.item.id }}">购买
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

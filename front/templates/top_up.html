@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}
+    充值
+{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/signbase.css' %}">
+    <script src="{% static 'js/top_up.js' %}"></script>
+{% endblock %}
+{% block body %}
+    <div class="outer-box">
+        <h2 class="page-title">
+            充值
+        </h2>
+        <h4>
+            我的余额：{{ user.money }}
+        </h4>
+        <div class="sign-box">
+            <div class="form-group">
+                <label for="">请输入需要充值金额：</label>
+                <input type="number" class="form-control" id="money">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-sm btn-primary" id="submit-btn">充值</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
