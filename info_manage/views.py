@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import CarModel, HotModel, OrderModel, ItemModel, CategoryModel, UserInfoModel
+from .models import CarModel, HotModel, OrderModel, ItemModel, CategoryModel, UserInfoModel, CommentModel
 from django.http import JsonResponse
 
 
@@ -71,8 +71,12 @@ def item_detail(request, item_id):
         item = ItemModel.objects.filter(
             id=item_id
         ).first()
+        comments = CommentModel.objects.filter(
+            item_id=item_id
+        )
         context = {
-            'item': item
+            'item': item,
+            'comments': comments
         }
         return render(request, 'item_detail.html', context=context)
 
@@ -251,3 +255,21 @@ def top_up(request):
         user.money = user.money + int(money)
         user.save()
         return JsonResponse({'code': 200})
+
+
+def add_comment(request):
+    # 添加评论
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return JsonResponse({'code': 400, 'message': '请先登录'})
+    content = request.POST.get('content')
+    item_id = request.POST.get('item_id')
+    if not content:
+        return JsonResponse({'code': 400, 'message': '内容不能为空'})
+
+    CommentModel.objects.create(
+        user_id=user_id,
+        content=content,
+        item_id=item_id
+    )
+    return JsonResponse({'code': 200})

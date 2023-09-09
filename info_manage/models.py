@@ -91,3 +91,18 @@ class HotModel(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class CommentModel(models.Model):
+    user = models.ForeignKey('UserInfoModel', on_delete=models.CASCADE, verbose_name='所属用户')
+    item = models.ForeignKey('ItemModel', on_delete=models.CASCADE, verbose_name='所属商品')
+    content = models.TextField(verbose_name='评论内容')
+    create_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
+
+    class Meta:
+        db_table = 'db_comment'
+        verbose_name = '评论信息'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.user.username

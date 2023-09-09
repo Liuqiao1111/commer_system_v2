@@ -50,10 +50,36 @@ ItemDetail.prototype.listenAddOrder = function () {
     });
 };
 
+ItemDetail.prototype.listenAddComment = function () {
+    $("#add-comment-btn").on("click", function (event) {
+        event.preventDefault();
+        var $this = $(this);
+        var item_id = $this.attr('item-id');
+        var content = $('#comment-textarea').val();
+        $.ajax({
+            url: "/add_comment/",
+            type: 'POST',
+            data: {
+                item_id,
+                content
+            },
+            success: function (result) {
+                if (result['code'] === 200) {
+                    alert('发布成功');
+                    location.reload()
+                } else {
+                    alert(result['message']);
+                }
+            }
+        })
+    });
+};
+
 
 ItemDetail.prototype.run = function () {
     this.listenAddCar();
     this.listenAddOrder();
+    this.listenAddComment();
 };
 
 

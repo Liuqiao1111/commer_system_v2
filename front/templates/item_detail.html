@@ -34,5 +34,32 @@
             </button>
         </div>
     </div>
+    <div class="comment-group">
+        <h3>评论列表</h3>
+        <ul class="comment-list-group">
+            {% for comment in comments %}
+                <li>
+                    <div class="comment-content">
+                        <p class="author-info">
+                            <span>{{ comment.user.username }}</span>
+                            <span>{{ comment.create_time }}</span>
+                        </p>
+                        <p class="comment-txt">
+                            {{ comment.content }}
+                        </p>
+                    </div>
+                </li>
+            {% endfor %}
+
+        </ul>
+    </div>
+    <div class="add-comment-group">
+        <h3>发布留言</h3>
+        <textarea name="comment" id="comment-textarea" style="width: 100%; resize:vertical;"></textarea>
+        <div class="comment-btn-group">
+            <button class="btn btn-primary" id="add-comment-btn" item-id="{{ item.id }}">发布留言
+            </button>
+        </div>
+    </div>
 
 {% endblock %}

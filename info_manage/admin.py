@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-
-from .models import UserInfoModel, ItemModel, CategoryModel, OrderModel, CarModel, HotModel
+from .models import UserInfoModel, ItemModel, CategoryModel, OrderModel, CarModel, HotModel, CommentModel
 
 
 class UserInfoAdmin(admin.ModelAdmin):
@@ -37,10 +36,15 @@ class HotAdmin(admin.ModelAdmin):
     list_display = ('name', 'item')
 
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('user', 'item', 'create_time')
+
+
 admin.site.register(UserInfoModel, UserInfoAdmin)
 admin.site.register(CategoryModel, CategoryAdmin)
 admin.site.register(ItemModel, ItemAdmin)
 admin.site.register(OrderModel, OrderAdmin)
 admin.site.register(CarModel, CarAdmin)
 admin.site.register(HotModel, HotAdmin)
+admin.site.register(CommentModel, CommentAdmin)
 admin.site.site_header = '电商后台管理系统'
