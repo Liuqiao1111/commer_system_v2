@@ -18,6 +18,7 @@
                 <th>商品名称</th>
                 <th>价格</th>
                 <th>图片</th>
+                <th>尺码</th>
                 <th>添加时间</th>
                 <th>删除</th>
                 <th>购买</th>
@@ -33,6 +34,7 @@
                     <td>
                         <img src="/image/{{ car.item.image }}" alt="" style="width: 120px;height: 90px">
                     </td>
+                    <td>{{ car.item.size }}</td>
                     <td>{{ car.create_time }}</td>
                     <td>
                         <button class="btn btn-sm btn-danger delete-car-btn" car-id="{{ car.id }}">删除</button>

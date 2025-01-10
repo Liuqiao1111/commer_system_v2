@@ -22,7 +22,20 @@
         <div class="post-content">
             <p>价格：{{ item.price }}元</p>
             <p>介绍：{{ item.content }}</p>
-            <p>数量：{{ item.number }}</p>
+            <p>尺寸：{{ item.size }}</p>
+            <div class="form-group">
+                <label for="size-select">选择尺寸：</label>
+                <select class="form-control" id="size-select" style="width: 100px;">
+                    {% for size in item.SIZE_CHOICES %}
+                        <option value="{{ size.0 }}" {% if item.size == size.0 %}selected{% endif %}>{{ size.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="number-input">数量：</label>
+                <input type="number" class="form-control" id="number-input" value="1" min="1" max="{{ item.number }}" style="width: 100px;">
+            </div>
+            <p>库存数量：{{ item.number }}</p>
             <p>上架时间：{{ item.create_time }}</p>
         </div>
 

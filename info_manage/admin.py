@@ -12,7 +12,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'number', 'image_tag', 'category')
+    list_display = ('name', 'price', 'number', 'size', 'image_tag', 'category')
 
     def image_tag(self, obj):
         if obj.image:
