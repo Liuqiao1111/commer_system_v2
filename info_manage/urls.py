@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: utf-8`"]
 from . import views
 from django.urls import path
 
@@ -18,4 +18,5 @@ urlpatterns = [
     path('category_count/', views.category_count, name='category_count'),
     path('top_up/', views.top_up, name='top_up'),
     path('add_comment/', views.add_comment, name='add_comment'),
+    path('search/', views.search_items, name='search_items'),
 ]

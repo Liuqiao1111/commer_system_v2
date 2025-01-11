@@ -25,7 +25,23 @@ class ItemAdmin(admin.ModelAdmin):
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('item', 'user', 'price', 'create_time')
+    list_display = ('item', 'user', 'price', 'create_time', 'status')
+    list_filter = ('status', 'create_time')  
+    search_fields = ('user__username', 'item__name', 'price')  
+    search_help_text = "搜索用户名、商品名称或价格"  
+    list_per_page = 20  
+
+    def get_search_results(self, request, queryset, search_term):
+        queryset, use_distinct = super().get_search_results(request, queryset, search_term)
+        
+        # 处理状态的中文搜索
+        status_dict = dict(OrderModel.STATUS_CHOICES)
+        status_reverse = {v: k for k, v in status_dict.items()}
+        
+        if search_term in status_reverse:
+            queryset |= self.model.objects.filter(status=status_reverse[search_term])
+            
+        return queryset, use_distinct
 
 
 class CarAdmin(admin.ModelAdmin):

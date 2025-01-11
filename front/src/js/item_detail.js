@@ -6,12 +6,16 @@ ItemDetail.prototype.listenAddCar = function () {
         event.preventDefault();
         var $this = $(this);
         var item_id = $this.attr('item-id');
+        var size = $("#size-select").val();
+        var number = $("#number-input").val();
 
         $.ajax({
             url: "/add_car/",
             type: 'POST',
             data: {
-                item_id
+                item_id: item_id,
+                size: size,
+                number: number
             },
             success: function (result) {
                 if (result['code'] == 200) {
@@ -31,12 +35,16 @@ ItemDetail.prototype.listenAddOrder = function () {
         event.preventDefault();
         var $this = $(this);
         var item_id = $this.attr('item-id');
+        var size = $("#size-select").val();
+        var number = $("#number-input").val();
 
         $.ajax({
             url: "/add_order/",
             type: 'POST',
             data: {
-                item_id
+                item_id: item_id,
+                size: size,
+                number: number
             },
             success: function (result) {
                 if (result['code'] == 200) {

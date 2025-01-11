@@ -6,10 +6,49 @@
 
 {% block head %}
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <style>
+        .search-container {
+            padding: 20px;
+            text-align: center;
+            background-color: #f8f9fa;
+            margin-bottom: 20px;
+        }
+        .search-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+        }
+        .search-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .search-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .search-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
     <div class="lg-container">
+        <!-- 添加搜索框 -->
+        <div class="search-container">
+            <form class="search-form" action="/search/" method="GET">
+                <input type="text" name="query" class="search-input" placeholder="输入商品名称搜索..." required>
+                <button type="submit" class="search-button">搜索</button>
+            </form>
+        </div>
+
         <div id="carousel-example-generic" class="carousel slide index-banner" data-ride="carousel">
             <!-- 指示器 -->
             <ol class="carousel-indicators">

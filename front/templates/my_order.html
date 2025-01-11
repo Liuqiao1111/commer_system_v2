@@ -18,8 +18,10 @@
                 <th>商品名称</th>
                 <th>价格</th>
                 <th>图片</th>
+                <th>尺码</th>
+                <th>订单状态</th>
+                <th>快递单号</th>
                 <th>购买时间</th>
-                <th>删除</th>
             </tr>
             </thead>
             <tbody>
@@ -30,10 +32,10 @@
                     <td>
                         <img src="/image/{{ order.item.image }}" alt="" style="width: 120px;height: 90px">
                     </td>
+                    <td>{{ order.size }}</td>
+                    <td>{{ order.get_status_display }}</td>
+                    <td>{{ order.tracking_number }}</td>
                     <td>{{ order.create_time }}</td>
-                    <td>
-                        <button class="btn btn-sm btn-danger delete-order-btn" order-id="{{ order.id }}">删除订单</button>
-                    </td>
                 </tr>
             {% endfor %}
             </tbody>
