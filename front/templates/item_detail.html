@@ -25,7 +25,7 @@
             <p>尺寸：{{ item.size }}</p>
             <div class="form-group">
                 <label for="size-select">选择尺寸：</label>
-                <select class="form-control" id="size-select" style="width: 100px;">
+                <select class="form-control" id="size-select" style="width: 100px;" required>
                     {% for size in item.SIZE_CHOICES %}
                         <option value="{{ size.0 }}" {% if item.size == size.0 %}selected{% endif %}>{{ size.1 }}</option>
                     {% endfor %}

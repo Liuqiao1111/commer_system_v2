@@ -59,11 +59,21 @@ class ItemModel(models.Model):
 
 
 class OrderModel(models.Model):
+    STATUS_CHOICES = (
+        ('ordered', '已下单'),
+        ('shipped', '已发货'),
+        ('delivered', '已送达'),
+        ('completed', '已完成'),
+    )
+    
     item = models.ForeignKey('ItemModel', on_delete=models.CASCADE, verbose_name='所属商品')
     user = models.ForeignKey('UserInfoModel', on_delete=models.CASCADE, verbose_name='所属用户')
     price = models.IntegerField(verbose_name='总价格')
+    size = models.CharField(max_length=3, verbose_name='尺寸', default='M')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='ordered', verbose_name='订单状态')
+    tracking_number = models.CharField(max_length=100, verbose_name='快递单号', blank=True, null=True)
     create_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
-
+    
     class Meta:
         db_table = 'db_order'
         verbose_name = '订单信息'
@@ -77,6 +87,7 @@ class CarModel(models.Model):
     item = models.ForeignKey('ItemModel', on_delete=models.CASCADE, verbose_name='所属商品')
     user = models.ForeignKey('UserInfoModel', on_delete=models.CASCADE, verbose_name='所属用户')
     price = models.IntegerField(verbose_name='总价格')
+    size = models.CharField(max_length=3, verbose_name='尺寸', default='M')
     create_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
     is_pay = models.BooleanField(default=False, verbose_name='是否购买')
 
