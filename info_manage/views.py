@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import CarModel, HotModel, OrderModel, ItemModel, CategoryModel, UserInfoModel, CommentModel
+from .models import CarModel, HotModel, OrderModel, ItemModel, CategoryModel, UserInfoModel, CommentModel, ItemImageModel
 from django.http import JsonResponse
 
 
@@ -74,9 +74,13 @@ def item_detail(request, item_id):
         comments = CommentModel.objects.filter(
             item_id=item_id
         )
+        additional_images = ItemImageModel.objects.filter(
+            item_id=item_id
+        ).order_by('create_time')
         context = {
             'item': item,
-            'comments': comments
+            'comments': comments,
+            'additional_images': additional_images
         }
         return render(request, 'item_detail.html', context=context)
 

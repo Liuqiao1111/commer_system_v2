@@ -61,8 +61,9 @@ class ItemModel(models.Model):
 class OrderModel(models.Model):
     STATUS_CHOICES = (
         ('ordered', '已下单'),
+        ('prepare','备货中'),
+        ('unshipped', '待发货'),
         ('shipped', '已发货'),
-        ('delivered', '已送达'),
         ('completed', '已完成'),
     )
     
@@ -126,3 +127,18 @@ class CommentModel(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class ItemImageModel(models.Model):
+    item = models.ForeignKey('ItemModel', on_delete=models.CASCADE, verbose_name='所属商品')
+    image = models.ImageField(upload_to='item_images/', max_length=300, verbose_name='附加图片')
+    description = models.CharField(max_length=200, verbose_name='图片描述', blank=True)
+    create_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
+
+    class Meta:
+        db_table = 'db_item_image'
+        verbose_name = '商品附加图片'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return f"{self.item.name} - 附加图片"
