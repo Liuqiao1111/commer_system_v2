@@ -52,7 +52,6 @@ def register(request):
         UserInfoModel.objects.create(
             username=username,
             password=password1,
-            money=0,
             address=address,
             phone=phone
         )
@@ -143,13 +142,10 @@ def add_order(request):
         if int(number) > item.number:
             return JsonResponse({'code': 400, 'message': '库存不足'})
             
-        # 校验余额是否充足
         user = UserInfoModel.objects.filter(
             id=user_id
         ).first()
         total_price = item.price * int(number)
-        if user.money < total_price:
-            return JsonResponse({'code': 400, 'message': '余额不足，请充值'})
 
         # 如果是从购物车购买，获取购物车中的尺码
         if car_id:
@@ -162,9 +158,6 @@ def add_order(request):
             price=total_price,
             size=size,
         )
-        # 扣除余额
-        user.money = user.money - total_price
-        user.save()
         # 商品数量减少
         item.number = item.number - int(number)
         item.save()
@@ -253,38 +246,15 @@ def my_info(request):
 
 def category_count(request):
     if request.method == 'GET':
-        return render(request, 'category_count.html')
-    else:
-        data_list = []
         categories = CategoryModel.objects.all()
+        result = []
         for category in categories:
-            name = category.name
-            item_count = category.itemmodel_set.all().count()
-            data_list.append({
-                'name': name,
-                'value': item_count
+            items = ItemModel.objects.filter(category=category)
+            result.append({
+                'value': len(items),
+                'name': category.name
             })
-        return JsonResponse({'code': 200, 'data': data_list})
-
-
-def top_up(request):
-    user_id = request.session.get('user_id')
-    user = UserInfoModel.objects.filter(
-        id=user_id
-    ).first()
-    if request.method == 'GET':
-        # 显示充值界面
-        context = {
-            'user': user
-        }
-        return render(request, 'top_up.html', context=context)
-    else:
-        money = request.POST.get('money')
-        if not money:
-            return JsonResponse({'code': 400, 'message': '充值金额不能为空'})
-        user.money = user.money + int(money)
-        user.save()
-        return JsonResponse({'code': 200})
+        return JsonResponse({'code': 200, 'data': result})
 
 
 def add_comment(request):

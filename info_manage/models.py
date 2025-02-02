@@ -6,7 +6,6 @@ class UserInfoModel(models.Model):
     password = models.CharField(max_length=100, verbose_name='密码')
     address = models.CharField(max_length=100, verbose_name='地址')
     phone = models.CharField(max_length=100, verbose_name='手机号')
-    money = models.IntegerField(verbose_name='余额')
     create_time = models.DateTimeField(auto_now_add=True, verbose_name='加入时间')
 
     class Meta:
@@ -44,8 +43,7 @@ class ItemModel(models.Model):
     price = models.IntegerField(verbose_name='价格')
     image = models.ImageField(upload_to='', max_length=300, verbose_name='图片')
     content = models.TextField(verbose_name='介绍')
-    number = models.IntegerField(verbose_name='数量')
-    size = models.CharField(max_length=3, choices=SIZE_CHOICES, verbose_name='尺寸', default='M')
+    size = models.CharField(max_length=50, verbose_name='尺寸', default='M')
     category = models.ForeignKey('CategoryModel', on_delete=models.CASCADE, verbose_name='所属分类')
     create_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
 

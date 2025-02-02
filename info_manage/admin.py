@@ -4,7 +4,7 @@ from .models import UserInfoModel, ItemModel, CategoryModel, OrderModel, CarMode
 
 
 class UserInfoAdmin(admin.ModelAdmin):
-    list_display = ('username', 'password', 'address', 'money', 'phone', 'create_time')
+    list_display = ('username', 'password', 'address', 'phone', 'create_time')
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -12,7 +12,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'number', 'size', 'image_tag', 'category')
+    list_display = ('name', 'price', 'size', 'image_tag', 'category')
+    search_fields = ('name', 'size')  
 
     def image_tag(self, obj):
         if obj.image:

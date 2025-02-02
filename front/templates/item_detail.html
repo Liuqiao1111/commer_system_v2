@@ -15,8 +15,10 @@
             margin-right: auto;
         }
         .carousel-inner .item img {
-            width: 1080px;
-            height: 1620px;
+            max-width: 100%;
+            max-height: 600px;
+            width: auto;
+            height: auto;
             object-fit: contain;
             margin: 0 auto;
             display: block;
@@ -83,7 +85,7 @@
         <div class="post-content">
             <p>价格：{{ item.price }}元</p>
             <p>介绍：{{ item.content }}</p>
-            <p>尺寸：{{ item.size }}</p>
+            {% comment %} <p>尺寸：{{ item.size }}</p> {% endcomment %}
             <div class="form-group">
                 <label for="size-input">选择尺寸：</label>
                 <input type="text" class="form-control" id="size-input" placeholder="请输入尺寸" style="width: 100px;" required>
