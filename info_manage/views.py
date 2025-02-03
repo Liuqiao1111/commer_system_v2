@@ -112,13 +112,11 @@ def add_car(request):
             size = item.size
         
         # 检查库存
-        if int(number) > item.number:
-            return JsonResponse({'code': 400, 'message': '库存不足'})
             
         CarModel.objects.create(
             item_id=item_id,
             user_id=user_id,
-            price=item.price * int(number),
+            price=item.price,
             size=size,
         )
         return JsonResponse({'code': 200})
@@ -138,14 +136,12 @@ def add_order(request):
             id=item_id
         ).first()
         
-        # 检查库存
-        if int(number) > item.number:
-            return JsonResponse({'code': 400, 'message': '库存不足'})
+
             
         user = UserInfoModel.objects.filter(
             id=user_id
         ).first()
-        total_price = item.price * int(number)
+        total_price = item.price 
 
         # 如果是从购物车购买，获取购物车中的尺码
         if car_id:
@@ -158,8 +154,7 @@ def add_order(request):
             price=total_price,
             size=size,
         )
-        # 商品数量减少
-        item.number = item.number - int(number)
+
         item.save()
 
         if car_id:

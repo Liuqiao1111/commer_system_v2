@@ -62,18 +62,20 @@
                 {% endfor %}
             </ol>
             <!-- 轮播图 -->
-            <div class="carousel-inner" role="listbox" style="height: 500px">
+            <!--轮播图需要适应不同尺寸的屏幕，高度和宽度都需要设置为100%-->
+
+            <div class="carousel-inner" role="listbox" style="height: 100% !important; width: 100% !important;">
                 {% for hot in hots %}
                     {% if forloop.first %}
                         <div class="item active">
                             <a href="/item_detail/{{ hot.item.id }}">
-                                <img src="/image/{{ hot.item.image }}" alt="">
+                                <img src="/image/{{ hot.item.image }}" alt="Responsive image" style="height:100% !important; width: 100% !important">
                             </a>
                         </div>
                     {% else %}
                         <div class="item">
                             <a href="/item_detail/{{ hot.item.id }}">
-                                <img src="/image/{{ hot.item.image }}" alt="">
+                                <img src="/image/{{ hot.item.image }}" alt="Responsive image" style="height:100% !important; width: 100% !important">
                             </a>
                         </div>
                     {% endif %}

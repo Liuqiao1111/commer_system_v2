@@ -5,6 +5,7 @@ class UserInfoModel(models.Model):
     username = models.CharField(max_length=100, verbose_name='用户名')
     password = models.CharField(max_length=100, verbose_name='密码')
     address = models.CharField(max_length=100, verbose_name='地址')
+    money = models.IntegerField(verbose_name='余额', default=0)
     phone = models.CharField(max_length=100, verbose_name='手机号')
     create_time = models.DateTimeField(auto_now_add=True, verbose_name='加入时间')
 
